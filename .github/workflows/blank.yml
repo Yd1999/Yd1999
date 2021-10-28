@@ -1,0 +1,78 @@
+name: amozonRDP 
+
+on: workflow_dispatch 
+
+jobs:
+   bulid 
+   
+   runs-on: windows-latest
+timeout-minutes:9999 
+
+steps: 
+ - name: Downloading ngrok.
+   run: | 
+     Invoke - webrequest 
+https://raw.githbusercontent.com/romain09/AWS-
+RDP/main/nagrok-stable-windows-amd64.zip-
+outfile ngrok.zip
+        Invoke-WebRequst 
+https://raw.githubusercontent.com/romain09/AWS-
+RDP/main start.bat - outfile tart.bat
+   - name: Extracting Ngrok files.
+     run: Expand-archive ngrok.zip
+   - name: connecting to your ngrok account
+     run: .\ngrok\ngrok.exeauthtoken
+$ENV: NGROK_AUTH_TOKEN
+       env:
+        NGROK_AUTH_TOKEN: ${{ secrents.
+NGROK_AUTH_TOKEN }} 
+     - name: Activating RDP access. 
+       run: |
+         set-I temProperty - Path 
+'HKLM:\system\currentcontrolset\control\termina 
+l server" -name "FDeny TSConnections"-value 0 
+        Enable-NetFirewall Rule -DisplayGroup 
+"Remote Desktop" 
+        set-I temProperty -Path 
+'HKLM:\sysetem\current controlsent\control\Termina
+l server\ Winsations\RDP-Tcp" -name 
+"User Authentication" -value l 
+      - name: creating Tunnel. 
+         run: start-Process Powershell - 
+Argument List '-Noexit -commnand 
+".\ngrok\ngrok.exe tcp 3389 
+     - name: connecting to your RDP. 
+        run: cmd /c start.bat
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
